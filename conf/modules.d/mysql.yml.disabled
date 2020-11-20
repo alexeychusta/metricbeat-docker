@@ -1,0 +1,9 @@
+- module: mysql
+  metricsets:
+    - status
+  #  - galera_status
+  #  - performance
+  #  - query
+  hosts: ["tcp(127.0.0.1:3306)/"]
+  username: user
+  password: pass

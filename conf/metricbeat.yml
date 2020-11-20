@@ -1,0 +1,33 @@
+metricbeat.config:
+  modules:
+    path: ${path.config}/modules.d/*.yml
+    # Reload module configs as they change:
+    reload.enabled: false
+
+#name: ""
+metricbeat.autodiscover:
+    providers:
+    - type: docker
+      hints.enabled: true
+
+processors:
+  - drop_fields.fields: ['agent','cloud','ecs']
+  - add_fields:
+      target: env
+      fields:
+        tag: prod
+
+setup.kibana.host: "http://kibana:5601"
+#setup.kibana.username: 
+setup.kibana.password: PASS
+setup.kibana.username: user
+#setup.dashboards.enabled: true
+setup.ilm.enabled: false
+
+
+
+output.elasticsearch:
+  hosts: 'https://elastic:9200'
+  username: user
+  password: PASS
+  ssl.verification_mode: "none"

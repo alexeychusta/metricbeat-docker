@@ -1,0 +1,34 @@
+- module: system
+  period: 15s
+  metricsets:
+    - cpu
+    - load
+    - memory
+    - network
+    - process
+    - process_summary
+      #    - socket_summary
+
+    #- entropy
+    #- core
+    - diskio
+    #- socket
+    #- service
+    #- users
+  interfaces: ['eth0','eth1']
+  diskio.include_devices: ['vda1']
+  process.include_top_n:
+    by_cpu: 5      # include top 5 processes by CPU
+    by_memory: 5   # include top 5 processes by memory
+
+- module: system
+  period: 3m
+  metricsets:
+    - filesystem
+    - fsstat
+  processors:
+    - drop_event.when.or:
+       - regexp.system.filesystem.mount_point: '^/hostfs/run/(docker|boot|proc|dev|etc|host|lib|snap)/*'
+       - regexp.system.filesystem.mount_point: '^/hostfs/(snap|boot)/*'
+       - regexp.system.filesystem.mount_point: '^/hostfs/var/lib/*'
+
