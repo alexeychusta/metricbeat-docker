@@ -18,11 +18,11 @@ processors:
         tag: prod
 
 setup.kibana.host: "http://kibana:5601"
-#setup.kibana.username: 
+setup.kibana.username: user 
 setup.kibana.password: PASS
-setup.kibana.username: user
 #setup.dashboards.enabled: true
 setup.ilm.enabled: false
+setup.ilm.check_exists: false
 
 
 
